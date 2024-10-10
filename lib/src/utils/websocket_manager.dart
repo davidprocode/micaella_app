@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-class WebSocketServerManager {
+import 'package:flutter/material.dart';
+
+class WebSocketServerManager with ChangeNotifier {
   final _controller = StreamController<String>();
   late HttpServer _server;
   final List<WebSocket> _clients = [];
@@ -21,10 +23,11 @@ class WebSocketServerManager {
       } else {
         request.response
           ..statusCode = HttpStatus.forbidden
-          ..write('Este é um servidor WebSocket.')
+          ..write('Esta é a resposta do servidor WebSocket.')
           ..close();
       }
     });
+    notifyListeners();
   }
 
   void _listenToClient(WebSocket client) {
@@ -35,7 +38,7 @@ class WebSocketServerManager {
       },
       onDone: () {
         _clients.remove(client);
-        print('Cliente desconectado.');
+        log('Cliente desconectado.');
       },
       onError: (error) {
         _controller.addError(error);
@@ -49,7 +52,9 @@ class WebSocketServerManager {
     }
   }
 
+  @override
   void dispose() {
+    super.dispose();
     for (var client in _clients) {
       client.close();
     }
