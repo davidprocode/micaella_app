@@ -21,7 +21,10 @@ class _ClientModeState extends State {
               builder: (context, value, child) {
                 return const Text('Client mode selected');
               },
-            )
+            ),
+            const BackButton(
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
           ],
         ),
       ),

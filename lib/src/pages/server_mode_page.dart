@@ -6,10 +6,23 @@ class ServerModePage extends StatefulWidget {
   const ServerModePage({super.key});
 
   @override
-  State createState() => _ServerModeState();
+  State<ServerModePage> createState() => _ServerModePageState();
 }
 
-class _ServerModeState extends State {
+class _ServerModePageState extends State<ServerModePage> {
+  String address = 'Obtendo IP...';
+  String port = '';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final manager = Provider.of<WebSocketServerManager>(context);
+    setState(() {
+      address = manager.getIpAddres() as String;
+      port = manager.port;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,11 +30,11 @@ class _ServerModeState extends State {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Consumer<WebSocketServerManager>(
-              builder: (context, value, child) {
-                return const Text('Server mode selected');
-              },
-            )
+            const Text('Server mode selected'),
+            Text('ws://$address:$port'),
+            const BackButton(
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
           ],
         ),
       ),

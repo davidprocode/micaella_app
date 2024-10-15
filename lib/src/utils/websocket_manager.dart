@@ -9,11 +9,34 @@ class WebSocketServerManager with ChangeNotifier {
   late HttpServer _server;
   final List<WebSocket> _clients = [];
 
+  late final Future<String> _address = getIpAddres();
+  late final int _port = 4040;
+
   Stream<String> get stream => _controller.stream;
 
-  Future<void> start() async {
-    _server = await HttpServer.bind(InternetAddress.anyIPv4, 4040);
-    log('Servidor WebSocket iniciado em ws://${_server.address.address}:${_server.port}');
+  get address => _address;
+  get port => _port;
+
+  Future<String> getIpAddres() async {
+    try {
+      for (var interface in await NetworkInterface.list(
+          includeLinkLocal: false,
+          includeLoopback: false,
+          type: InternetAddressType.IPv4)) {
+        for (var addr in interface.addresses) {
+          if (addr.type == InternetAddressType.IPv4 && !addr.isLoopback) {
+            return addr.address;
+          }
+        }
+      }
+    } catch (e) {
+      print('Erro ao obter IP: $e');
+    }
+    return 'Falha ao obter IP';
+  }
+
+  Future start() async {
+    _server = await HttpServer.bind(InternetAddress.anyIPv4, _port);
 
     _server.listen((HttpRequest request) async {
       if (WebSocketTransformer.isUpgradeRequest(request)) {

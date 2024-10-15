@@ -46,6 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
     windowManager.hide();
   }
 
+  void _handleButtonClientMode() {
+    _timer?.cancel();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ClientModePage(),
+      ),
+    );
+  }
+
+  void _handleButtonServerMode() {
+    _timer?.cancel();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ServerModePage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    style: const ButtonStyle(),
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ClientModePage())),
-                    child: const Text("Cliente"),
-                  ),
+                      style: const ButtonStyle(),
+                      onPressed: () => _handleButtonClientMode(),
+                      child: const Text("Client Mode")),
                   TextButton(
-                    style: const ButtonStyle(),
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ServerModePage())),
-                    child: const Text("Servidor"),
-                  ),
+                      style: const ButtonStyle(),
+                      onPressed: () => _handleButtonServerMode(),
+                      child: const Text("Server Mode")),
                 ],
               ),
             ],
