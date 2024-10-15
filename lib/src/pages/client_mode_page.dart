@@ -22,11 +22,11 @@ class _ClientModeState extends State {
                 return const Text('Client mode selected');
               },
             ),
-            const BackButton(
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
           ],
         ),
+      ),
+      floatingActionButton: const BackButton(
+        color: Color.fromRGBO(255, 0, 0, 1),
       ),
     );
   }

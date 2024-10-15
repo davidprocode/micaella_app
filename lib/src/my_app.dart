@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pinkAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Bem Vindo ao Micaella App'),
+      home: const MyHomePage(),
     );
   }
 }

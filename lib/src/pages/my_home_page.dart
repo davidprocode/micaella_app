@@ -5,15 +5,14 @@ import 'package:micaella_app/src/pages/server_mode_page.dart';
 import 'package:window_manager/window_manager.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String title = "Micaella App";
   int _counter = 3;
   Timer? _timer;
 
@@ -69,19 +68,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
+          title: Text(title),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              const Text(
+                'Aguarde',
+                style: TextStyle(fontSize: 24),
+              ),
               Center(
                 child: Text(
-                  'Contagem: $_counter',
-                  style: const TextStyle(fontSize: 24),
+                  'Fechando automaticamente em: $_counter',
+                  style: const TextStyle(fontSize: 9),
                 ),
               ),
-              const Text('Aguarde...'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
