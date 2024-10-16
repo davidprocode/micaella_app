@@ -1,5 +1,6 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:micaella_app/src/utils/websocket_manager.dart';
+import 'package:micaella_app/src/utils/websocket.dart';
 import 'package:provider/provider.dart';
 
 class ClientModePage extends StatefulWidget {
@@ -17,11 +18,13 @@ class _ClientModeState extends State {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Consumer<WebSocketServerManager>(
-              builder: (context, value, child) {
-                return const Text('Client mode selected');
+            Consumer<WebsocketService>(
+              builder: (context, manager, child) {
+                return TextButton(
+                    onPressed: () => _handlerSerndButton(manager),
+                    child: const Text('Send Command'));
               },
-            ),
+            )
           ],
         ),
       ),
@@ -29,5 +32,10 @@ class _ClientModeState extends State {
         color: Color.fromRGBO(255, 0, 0, 1),
       ),
     );
+  }
+
+  _handlerSerndButton(WebsocketService manager) {
+    manager.sendCommand();
+    log('Send comand button');
   }
 }

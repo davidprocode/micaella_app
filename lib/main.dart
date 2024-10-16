@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:micaella_app/src/utils/websocket.dart';
 import 'package:provider/provider.dart';
-import 'package:micaella_app/src/utils/websocket_manager.dart';
 import 'package:window_manager/window_manager.dart';
 import 'src/my_app.dart';
 
@@ -21,11 +21,13 @@ void main() async {
     await windowManager.focus();
   });
 
-  WebSocketServerManager webSocketServerManager = WebSocketServerManager();
-  webSocketServerManager.start();
+  WebsocketService server = WebsocketService();
+  server.start();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => webSocketServerManager,
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<WebsocketService>(create: (_) => server)
+    ],
     child: const MyApp(),
   ));
 }
