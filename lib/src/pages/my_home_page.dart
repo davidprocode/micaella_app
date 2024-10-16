@@ -54,15 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _handleButtonServerMode() {
-    _timer?.cancel();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ServerModePage(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,10 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: const ButtonStyle(),
                       onPressed: () => _handleButtonClientMode(),
                       child: const Text("Client Mode")),
-                  TextButton(
-                      style: const ButtonStyle(),
-                      onPressed: () => _handleButtonServerMode(),
-                      child: const Text("Server Mode")),
                 ],
               ),
             ],
